@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >-
+  Throwaway pilot app for AWS Cost Insights. One Lambda behind an HTTP API. Raising
+  MemorySize in a pull request is the change the cost check is tested with.
+
+Globals:
+  Function:
+    Architectures: [arm64]
+
+Resources:
+  HelloFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: Returns a greeting.
+      CodeUri: src/
+      Handler: app.handler
+      Runtime: python3.12
+      MemorySize: 512
+      Timeout: 5
+      LoggingConfig:
+        LogGroup: !Ref HelloLogGroup
+      Events:
+        Hello:
+          Type: HttpApi
+          Properties:
+            Path: /hello
+            Method: GET
+
+  HelloLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 14
+
+Outputs:
+  HelloUrl:
+    Description: The greeting endpoint.
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/hello"
