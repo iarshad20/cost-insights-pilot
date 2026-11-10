@@ -16,7 +16,7 @@ Resources:
       CodeUri: src/
       Handler: app.handler
       Runtime: python3.12
-      MemorySize: 512
+      MemorySize: 1024
       Timeout: 5
       LoggingConfig:
         LogGroup: !Ref HelloLogGroup
