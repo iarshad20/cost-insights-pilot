@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: >-
-  Throwaway pilot app for AWS Cost Insights. One Lambda behind an HTTP API. Raising
+  Throwaway pilot app used to test AWS Cost Insights. One Lambda behind an HTTP API. Raising
   MemorySize in a pull request is the change the cost check is tested with.
 
 Globals:
@@ -16,7 +16,7 @@ Resources:
       CodeUri: src/
       Handler: app.handler
       Runtime: python3.12
-      MemorySize: 512
+      MemorySize: 2048
       Timeout: 5
       LoggingConfig:
         LogGroup: !Ref HelloLogGroup
